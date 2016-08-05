@@ -20,7 +20,7 @@ export default class App extends React.Component {
                 round. Ham hock doner andouille pig kielbasa.</p>
             </div>
             <div className="col-sm-4">
-              <h2>Thing 3</h2>
+              <h2>Column 3</h2>
               <p> Jerky t-bone pancetta prosciutto, salami bresaola ball tip chuck boudin tri-tip kevin chicken. Sausage
                 picanha chuck boudin, cupim prosciutto beef ribs ribeye doner alcatra short ribs.</p>
             </div>
