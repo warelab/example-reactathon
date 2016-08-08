@@ -12,7 +12,8 @@ export default class App extends React.Component {
     super(props);
 
     this.state = {
-      filterText: 'PAD'
+      filterText: 'PAD',
+      suggestions: []
     };
 
     this.updateSuggestions();
@@ -30,7 +31,15 @@ export default class App extends React.Component {
     searchClient.suggest(filterText).then(
         (suggestionResponse) => {
           if (suggestionResponse.metadata.query === this.state.filterText) {
-            this.setState({suggestionResponse});
+            const categories = _.get(suggestionResponse, 'categories');
+            if(!categories) return [];
+
+            const suggestions = _(categories).map( (cat) => _.head(cat.suggestions) )
+                                .sortBy('score')
+                                .reverse()
+                                .value() || [];
+
+            this.setState({suggestions});
           }
         }
     );
@@ -53,13 +62,7 @@ export default class App extends React.Component {
   }
 
   getSuggestions() {
-    const categories = _.get(this.state.suggestionResponse, 'categories');
-    if(!categories) return [];
-
-    return _(categories).map( (cat) => _.head(cat.suggestions) )
-                        .sortBy('score')
-                        .reverse()
-                        .value();
+    return this.state.suggestions;
   }
 
   filteredResultCount() {
