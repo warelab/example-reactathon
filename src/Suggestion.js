@@ -1,16 +1,12 @@
 import React from "react";
-import {Col} from "react-bootstrap";
+import {Col, Badge} from "react-bootstrap";
 
-export default class Suggestion extends React.Component {
-  render() {
-    return (
-        <Col sm={this.props.sm}>
-          <h4>{this.props.display_name} <small>{this.props.score.toPrecision(2)}</small></h4>
-          <p>{this.props.category}</p>
+const Suggestion = ({display_name, category, score, sm}) =>
+        <Col sm={sm}>
+          <h4>{display_name} <Badge>{score.toPrecision(2)}</Badge></h4>
+          <p>{category}</p>
         </Col>
-    )
-  }
-}
+    ;
 
 Suggestion.propTypes = {
   category: React.PropTypes.string.isRequired,
@@ -22,3 +18,5 @@ Suggestion.propTypes = {
 Suggestion.defaultProps = {
   sm: 4
 };
+
+export default Suggestion;
