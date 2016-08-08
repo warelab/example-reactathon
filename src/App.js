@@ -36,8 +36,8 @@ export default class App extends React.Component {
     return (
         <div>
           <Jumbotron>
-            <h1>Hello World!</h1>
-            <p>This is a subtitle.</p>
+            <h1>Suggestotron</h1>
+            <p>Let me tell you what you want</p>
           </Jumbotron>
           <Filter filterText={this.state.filterText}
                   onFilterChange={(e) => this.updateFilterText(e.target.value)} />
@@ -53,6 +53,8 @@ export default class App extends React.Component {
     if(!categories) return [];
 
     return _(categories).map( (cat) => _.head(cat.suggestions) )
+                        .sortBy('score')
+                        .reverse()
                         .value();
   }
 
