@@ -28,7 +28,11 @@ export default class App extends React.Component {
 
   updateSuggestions(filterText = this.state.filterText) {
     searchClient.suggest(filterText).then(
-        (suggestionResponse) => this.setState({suggestionResponse})
+        (suggestionResponse) => {
+          if (suggestionResponse.metadata.query === this.state.filterText) {
+            this.setState({suggestionResponse});
+          }
+        }
     );
   }
 
