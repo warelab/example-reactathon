@@ -4,8 +4,23 @@ import {Row, Jumbotron} from "react-bootstrap";
 import bacon from "../data/bacon.json";
 
 import Item from "./Item";
+import Filter from "./Filter";
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      filterText: ''
+    }
+  }
+
+  updateFilterText(filterText) {
+    // this is ES6 shorthand for
+    // this.setState({ filterText: filterText });
+    this.setState({ filterText });
+  }
+
   render() {
     return (
         <div>
@@ -13,11 +28,28 @@ export default class App extends React.Component {
             <h1>Hello World!</h1>
             <p>This is a subtitle.</p>
           </Jumbotron>
+          <Filter filterText={this.state.filterText}
+                  onFilterChange={(e) => this.updateFilterText(e.target.value)} />
+
           <Row>
             {this.renderItems()}
           </Row>
         </div>
     );
+  }
+
+  getFilteredResults() {
+    const filterText = this.state.filterText;
+
+    if(!filterText) {
+      return bacon.items;
+    }
+
+    return bacon.items.filter((item) => item.text.includes(filterText));
+  }
+
+  filteredResultCount() {
+    return this.getFilteredResults().length;
   }
 
   renderItems() {
@@ -62,6 +94,6 @@ export default class App extends React.Component {
     return bacon.items.map( (item, idx) => <Item key={idx} {...item} /> );
      */
 
-    return bacon.items.map( (item, idx) => <Item key={idx} {...item} /> )
+    return this.getFilteredResults().map( (item, idx) => <Item key={idx} {...item} /> )
   }
 }
