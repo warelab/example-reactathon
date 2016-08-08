@@ -1,5 +1,5 @@
 import React from "react";
-import {Row, Col, Jumbotron} from "react-bootstrap";
+import {Row, Jumbotron} from "react-bootstrap";
 
 import bacon from "../data/bacon.json";
 
