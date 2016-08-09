@@ -1,25 +1,18 @@
-import React, {Component, PropTypes} from "react";
+import React, {PropTypes} from "react";
 import {FormControl} from "react-bootstrap";
 
-export default class Filter extends Component {
-
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-        <FormControl
-            type="text"
-            value={this.props.filterText}
-            placeholder="Filter items"
-            onChange={(e) => this.props.onFilterChange(e)}
-        />
-    );
-  }
-}
+const Filter = ({filterText, onFilterChange}) =>
+    <FormControl
+        type="text"
+        value={filterText}
+        placeholder="Filter items"
+        onChange={onFilterChange}
+    />
+;
 
 Filter.propTypes = {
   filterText: PropTypes.string.isRequired,
   onFilterChange: PropTypes.func.isRequired
 };
+
+export default Filter;
